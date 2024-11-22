@@ -1,0 +1,48 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #6BAEDB; /* Replace with the color you set */
+  color: white;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures spacing between content and the logo */
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 25px;
+  display: block;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-logo {
+  text-align: center;
+  margin-top: 0px;
+}
+
+.sidebar-logo img {
+  max-width: px; /* Adjust size as needed */
+  max-height: 95px;
+  object-fit: contain;
+}

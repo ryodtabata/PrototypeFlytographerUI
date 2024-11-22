@@ -1,25 +1,48 @@
-import logo from './logo.svg';
+// src/App.js
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './components/Layout';
+import ViewRankings from './pages/ViewRankings';
+import ViewParameters from './pages/ViewParameters';
+import EditParameter from './pages/EditParameter';
+import Login from './pages/Login';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication state
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <Routes>
+        {/* Login Page */}
+        <Route
+          path="/login"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/" /> // If already logged in, go to the main app
+            ) : (
+              <Login onLogin={() => setIsAuthenticated(true)} /> // Pass login handler
+            )
+          }
+        />
+
+        {/* Protected Routes */}
+        <Route
+          path="/"
+          element={
+            isAuthenticated ? <Layout /> : <Navigate to="/login" />
+          }
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route index element={<ViewRankings />} />
+          <Route path="view-parameters" element={<ViewParameters />} />
+          <Route path="edit-parameter" element={<EditParameter />} />
+        </Route>
+
+        {/* Catch-All Redirect to Login or Home based on Authentication */}
+        <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
