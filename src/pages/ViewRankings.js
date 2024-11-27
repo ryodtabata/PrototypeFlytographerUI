@@ -33,7 +33,7 @@ const ViewRankings = () => {
 
     return {
       id: `PHT-${Math.floor(1000 + Math.random() * 9000)}`,
-      elo: Math.floor(3500 + Math.random() * (5000 - 3500 + 1)),
+      elo: Math.floor(80 + Math.random() * (120)),
       firstName: firstNames[Math.floor(Math.random() * firstNames.length)],
       lastName: lastNames[Math.floor(Math.random() * lastNames.length)],
       phoneNumber
