@@ -1,12 +1,14 @@
-
 import React from 'react';
 import ParametersTable from '../components/ParametersTable';
+import './ViewParameters.css';
 
 const ViewParameters = () => {
   return (
-    <div>
-      <h1>View Active Parameters</h1>
-      <ParametersTable />
+    <div className="view-parameters-container">
+      <h1 className="view-parameters-title">Active Parameters</h1>
+      <div className="parameters-table-wrapper">
+        <ParametersTable />
+      </div>
     </div>
   );
 };

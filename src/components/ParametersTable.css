@@ -1,13 +1,64 @@
+.view-parameters-container {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 1200px;
+  font-family: Arial, sans-serif;
+}
 
-.parameters-table {
+.view-parameters-title {
+  text-align: center;
+  color: hsl(0, 0%, 2%);
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.parameters-table-wrapper {
+  background-color: #6BAEDB; /* Set the table wrapper background */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Makes the table scrollable on smaller screens */
+}
+
+.parameters-table-wrapper table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
 }
-.parameters-table th, .parameters-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+
+.parameters-table-wrapper th,
+.parameters-table-wrapper td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
-.parameters-table th {
-  background: #f4f4f4;
+
+.parameters-table-wrapper th {
+  background-color: #6BAEDB; /* Use the same color for the header */
+  color: #fff;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.parameters-table-wrapper td {
+  font-size: 1rem;
+  color: #333; /* Darker text for better contrast */
+  background-color: #ffffff; /* Keep a white background for table cells */
+}
+
+.parameters-table-wrapper tr:nth-child(even) {
+  background-color: #e8f3fa; /* Light blue shade for even rows */
+}
+
+.parameters-table-wrapper tr:hover {
+  background-color: #cbe3f6; /* Highlighted row hover effect */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .parameters-table-wrapper th,
+  .parameters-table-wrapper td {
+    font-size: 2.0rem;
+  }
 }

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './ViewRankings.css';
 
 const ViewRankings = () => {
-  // List of potential first names and last names
   const firstNames = [
-    "Alice", "Bob", "Charlie", "Diana", "Edward", 
+    "Alice", "Bob", "Charlie", "Diana", "Edward",
     "Fiona", "George", "Hannah", "Isaac", "Julia",
     "Kevin", "Luna", "Michael", "Nina", "Oliver",
     "Paula", "Quentin", "Rachel", "Samuel", "Tina",
@@ -18,69 +18,86 @@ const ViewRankings = () => {
     "Vargas", "Walker", "Young", "Zimmerman"
   ];
 
-  // Define a common area code and secondary area codes
-  const commonAreaCode = "555"; // Most numbers will have this area code
-  const secondaryAreaCodes = ["778", "236", "877"]; // A few with different area codes
+  const commonAreaCode = "555";
+  const secondaryAreaCodes = ["778", "236", "877"];
 
-  // Generate a fake database of photographers
-  const photographers = Array.from({ length: 200 }, () => {
-    // Randomly choose an area code (80% chance for commonAreaCode)
+  const initialPhotographers = Array.from({ length: 200 }, () => {
     const areaCode =
       Math.random() < 0.8
         ? commonAreaCode
         : secondaryAreaCodes[Math.floor(Math.random() * secondaryAreaCodes.length)];
 
-    // Generate a random phone number
     const phoneNumber = `${areaCode}-${Math.floor(100 + Math.random() * 900)}-${Math.floor(
       1000 + Math.random() * 9000
     )}`;
 
     return {
-      id: `PHT-${Math.floor(1000 + Math.random() * 9000)}`, // Random ID
-      elo: Math.floor(3500 + Math.random() * (5000 - 3500 + 1)), // Random ELO between 3500 and 5000
-      firstName: firstNames[Math.floor(Math.random() * firstNames.length)], // Random first name
-      lastName: lastNames[Math.floor(Math.random() * lastNames.length)], // Random last name
-      phoneNumber // Generated phone number
+      id: `PHT-${Math.floor(1000 + Math.random() * 9000)}`,
+      elo: Math.floor(3500 + Math.random() * (5000 - 3500 + 1)),
+      firstName: firstNames[Math.floor(Math.random() * firstNames.length)],
+      lastName: lastNames[Math.floor(Math.random() * lastNames.length)],
+      phoneNumber
     };
-   
   });
 
+  const [photographers, setPhotographers] = useState(initialPhotographers);
 
-
-
-
+  // Sorting function
+  const sortPhotographers = (criteria) => {
+    const sorted = [...photographers];
+    switch (criteria) {
+      case "firstName":
+        sorted.sort((a, b) => a.firstName.localeCompare(b.firstName));
+        break;
+      case "lastName":
+        sorted.sort((a, b) => a.lastName.localeCompare(b.lastName));
+        break;
+      case "id":
+        sorted.sort((a, b) => a.id.localeCompare(b.id));
+        break;
+      case "score":
+        sorted.sort((a, b) => b.elo - a.elo); // Descending order
+        break;
+      default:
+        break;
+    }
+    setPhotographers(sorted);
+  };
 
   return (
-    <div>
-      <h1>Photographers Rankings</h1>
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+    <div className="rankings-container">
+      <h1 className="rankings-title">Photographers Rankings</h1>
+      <div className="filter-dropdown">
+        <label htmlFor="sortCriteria">Sort by: </label>
+        <select
+          id="sortCriteria"
+          onChange={(e) => sortPhotographers(e.target.value)}
+        >
+          <option value="">Select</option>
+          <option value="firstName">First Name</option>
+          <option value="lastName">Last Name</option>
+          <option value="id">Photographer ID</option>
+          <option value="score">Score</option>
+        </select>
+      </div>
+      <table className="rankings-table">
         <thead>
           <tr>
-            <th style={{ border: '1px solid #ddd', padding: '8px' }}>Photographer ID</th>
-            <th style={{ border: '1px solid #ddd', padding: '8px' }}>Score</th>
-            <th style={{ border: '1px solid #ddd', padding: '8px' }}>First Name</th>
-            <th style={{ border: '1px solid #ddd', padding: '8px' }}>Last Name</th>
-            <th style={{ border: '1px solid #ddd', padding: '8px' }}>Phone Number</th>
+            <th>Photographer ID</th>
+            <th>Score</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
           </tr>
         </thead>
         <tbody>
           {photographers.map((photographer, index) => (
-            <tr key={index}>
-              <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                {photographer.id}
-              </td>
-              <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                {photographer.elo}
-              </td>
-              <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                {photographer.firstName}
-              </td>
-              <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                {photographer.lastName}
-              </td>
-              <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                {photographer.phoneNumber}
-              </td>
+            <tr key={index} className={index % 2 === 0 ? "even-row" : "odd-row"}>
+              <td>{photographer.id}</td>
+              <td className="score-column">{photographer.elo}</td>
+              <td>{photographer.firstName}</td>
+              <td>{photographer.lastName}</td>
+              <td>{photographer.phoneNumber}</td>
             </tr>
           ))}
         </tbody>

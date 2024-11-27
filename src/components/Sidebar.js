@@ -12,8 +12,9 @@ const Sidebar = () => {
       <h2>Admin Dashboard</h2>
       <ul>
         <li><Link to="/">Rankings</Link></li>
-        <li><Link to="/view-parameters">View Parameters</Link></li>
+        <li><Link to="/view-parameters">View Active Parameters</Link></li>
         <li><Link to="/edit-parameter">Edit Parameters</Link></li>
+        <li><Link to= "/data-anal">Data Analytics</Link></li>
       </ul>
     </div>
   );
