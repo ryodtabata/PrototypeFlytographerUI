@@ -22,25 +22,78 @@ ChartJS.register(
   Legend
 );
 
-const PhotographerAnalytics = ({ photographers }) => {
+const getProfilePicture = (name) => {
+  const femaleNames = ["Alice", "Diana", "Fiona", "Hannah", "Julia", "Luna", "Nina", "Paula", "Rachel", "Tina", "Uma", "Wendy", "Yara"];
+  const maleNames = ["Bob", "Charlie", "Edward", "George", "Isaac", "Kevin", "Michael", "Oliver", "Quentin", "Samuel", "Victor", "Xavier", "Zane"];
+
+  if (femaleNames.some((femaleName) => name.toLowerCase().includes(femaleName.toLowerCase()))) {
+    const index = Math.floor(Math.random() * 49) + 1;
+    return `/assets/tabler-avatars-1/png/${index}.png`;
+  }
+
+  if (maleNames.some((maleName) => name.toLowerCase().includes(maleName.toLowerCase()))) {
+    const index = Math.floor(Math.random() * 45) + 1;
+    return `/assets/tabler-avatars-1/png/m${index}.png`;
+  }
+
+  const index = Math.floor(Math.random() * 45) + 1;
+  return `/assets/tabler-avatars-1/png/m${index}.png`;
+};
+
+const generatePhotographers = (count = 100) => {
+  const firstNames = [
+    "Alice", "Bob", "Charlie", "Diana", "Edward", 
+    "Fiona", "George", "Hannah", "Isaac", "Julia",
+    "Kevin", "Luna", "Michael", "Nina", "Oliver",
+    "Paula", "Quentin", "Rachel", "Samuel", "Tina",
+    "Uma", "Victor", "Wendy", "Xavier", "Yara", "Zane"
+  ];
+  const lastNames = [
+    "Anderson", "Brown", "Clark", "Davis", "Evans",
+    "Fisher", "Garcia", "Harris", "Jackson", "King",
+    "Lopez", "Martinez", "Nelson", "Owens", "Parker",
+    "Quinn", "Reed", "Smith", "Taylor", "Underwood",
+    "Vargas", "Walker", "Young", "Zimmerman"
+  ];
+
+  return Array.from({ length: count }, () => {
+    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+    const name = `${firstName} ${lastName}`;
+
+    return {
+      name,
+      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
+      phone: `+1 (555) ${Math.floor(1000000 + Math.random() * 9000000)}`,
+      ghostingRate: Math.floor(Math.random() * 30),
+      availability: Math.floor(Math.random() * 50) + 50,
+      declineRate: Math.floor(Math.random() * 20),
+      customerReviews: (Math.random() * 5).toFixed(1),
+      score: Math.floor(Math.random() * 50) + 50,
+    };
+  });
+};
+
+const photographers = generatePhotographers();
+
+const PhotographerAnalytics = () => {
   const [hoveredPhotographer, setHoveredPhotographer] = useState(null);
 
-  // Prepare chart data
   const data = {
-    labels: photographers.map((photographer) => photographer.name), // Photographer names
+    labels: photographers.map((photographer) => photographer.name),
     datasets: [
       {
         label: 'Ghosting Rate (%)',
         data: photographers.map((photographer) => photographer.ghostingRate),
-        borderColor: '#F44336', // Red for ghosting
+        borderColor: '#F44336',
         backgroundColor: 'rgba(244, 67, 54, 0.2)',
         fill: true,
-        tension: 0.3, // Smooth line
+        tension: 0.3,
       },
       {
         label: 'Availability (%)',
         data: photographers.map((photographer) => photographer.availability),
-        borderColor: '#2196F3', // Blue for availability
+        borderColor: '#2196F3',
         backgroundColor: 'rgba(33, 150, 243, 0.2)',
         fill: true,
         tension: 0.3,
@@ -48,7 +101,7 @@ const PhotographerAnalytics = ({ photographers }) => {
       {
         label: 'Decline Rate (%)',
         data: photographers.map((photographer) => photographer.declineRate),
-        borderColor: '#FF9800', // Orange for decline rate
+        borderColor: '#FF9800',
         backgroundColor: 'rgba(255, 152, 0, 0.2)',
         fill: true,
         tension: 0.3,
@@ -56,7 +109,7 @@ const PhotographerAnalytics = ({ photographers }) => {
       {
         label: 'Customer Reviews (Stars)',
         data: photographers.map((photographer) => photographer.customerReviews),
-        borderColor: '#4CAF50', // Green for reviews
+        borderColor: '#4CAF50',
         backgroundColor: 'rgba(76, 175, 80, 0.2)',
         fill: true,
         tension: 0.3,
@@ -64,7 +117,7 @@ const PhotographerAnalytics = ({ photographers }) => {
       {
         label: 'Score',
         data: photographers.map((photographer) => photographer.score),
-        borderColor: '#9C27B0', // Purple for score
+        borderColor: '#9C27B0',
         backgroundColor: 'rgba(156, 39, 176, 0.2)',
         fill: true,
         tension: 0.3,
@@ -76,7 +129,7 @@ const PhotographerAnalytics = ({ photographers }) => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top', // Display the legend at the top
+        position: 'top',
       },
       tooltip: {
         enabled: true,
@@ -84,7 +137,7 @@ const PhotographerAnalytics = ({ photographers }) => {
           title: (context) => {
             const index = context[0].dataIndex;
             const photographer = photographers[index];
-            setHoveredPhotographer(photographer); // Show detailed info
+            setHoveredPhotographer(photographer);
             return photographer.name;
           },
           label: (context) => `${context.dataset.label}: ${context.raw}`,
@@ -96,11 +149,6 @@ const PhotographerAnalytics = ({ photographers }) => {
         title: {
           display: true,
           text: 'Photographers',
-        },
-        ticks: {
-          callback: function (val, index) {
-            return this.getLabelForValue(val).substring(0, 10); // Shorten names
-          },
         },
       },
       y: {
@@ -120,31 +168,49 @@ const PhotographerAnalytics = ({ photographers }) => {
         <div
           style={{
             marginTop: '20px',
-            padding: '10px',
+            padding: '20px',
             border: '1px solid #ddd',
             borderRadius: '8px',
             backgroundColor: '#f9f9f9',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
-          <h2>{hoveredPhotographer.name}</h2>
-          <p>
-            <strong>ID:</strong> {hoveredPhotographer.id}
-          </p>
-          <p>
-            <strong>Ghosting Rate:</strong> {hoveredPhotographer.ghostingRate}%
-          </p>
-          <p>
-            <strong>Availability:</strong> {hoveredPhotographer.availability}%
-          </p>
-          <p>
-            <strong>Decline Rate:</strong> {hoveredPhotographer.declineRate}%
-          </p>
-          <p>
-            <strong>Customer Reviews:</strong> {hoveredPhotographer.customerReviews} stars
-          </p>
-          <p>
-            <strong>Score:</strong> {hoveredPhotographer.score}
-          </p>
+          <div style={{ flex: '1' }}>
+            <h2>{hoveredPhotographer.name}</h2>
+            <p><strong>Email:</strong> {hoveredPhotographer.email}</p>
+            <p><strong>Phone:</strong> {hoveredPhotographer.phone}</p>
+            <p><strong>Ghosting Rate:</strong> {hoveredPhotographer.ghostingRate}%</p>
+            <p><strong>Availability:</strong> {hoveredPhotographer.availability}%</p>
+            <p><strong>Decline Rate:</strong> {hoveredPhotographer.declineRate}%</p>
+            <p><strong>Customer Reviews:</strong> {hoveredPhotographer.customerReviews} stars</p>
+            <p><strong>Score:</strong> {hoveredPhotographer.score}</p>
+            <button
+              style={{
+                marginTop: '10px',
+                padding: '10px 20px',
+                border: 'none',
+                backgroundColor: '#2196F3',
+                color: '#fff',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              Message
+            </button>
+          </div>
+          <div style={{ marginLeft: '20px' }}>
+            <img
+              src={getProfilePicture(hoveredPhotographer.name)}
+              alt={`${hoveredPhotographer.name}'s profile`}
+              style={{
+                width: '150px',
+                height: '150px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+              }}
+            />
+          </div>
         </div>
       )}
     </div>
