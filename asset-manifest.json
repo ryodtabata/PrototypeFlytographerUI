@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/ryodtabata/PrototypeFlytographerUI/static/css/main.b3627f4d.css",
+    "main.js": "/ryodtabata/PrototypeFlytographerUI/static/js/main.5c10e0c7.js",
+    "static/media/logo.png": "/ryodtabata/PrototypeFlytographerUI/static/media/logo.adddb59af5ec89368079.png",
+    "index.html": "/ryodtabata/PrototypeFlytographerUI/index.html",
+    "main.b3627f4d.css.map": "/ryodtabata/PrototypeFlytographerUI/static/css/main.b3627f4d.css.map",
+    "main.5c10e0c7.js.map": "/ryodtabata/PrototypeFlytographerUI/static/js/main.5c10e0c7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3627f4d.css",
+    "static/js/main.5c10e0c7.js"
+  ]
+}
