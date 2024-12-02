@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/PrototypeFlytographerUI/static/css/main.b3627f4d.css",
-    "main.js": "/PrototypeFlytographerUI/static/js/main.70049e2d.js",
+    "main.css": "/PrototypeFlytographerUI/static/css/main.05179a5e.css",
+    "main.js": "/PrototypeFlytographerUI/static/js/main.b201d626.js",
     "static/media/logo.png": "/PrototypeFlytographerUI/static/media/logo.adddb59af5ec89368079.png",
     "index.html": "/PrototypeFlytographerUI/index.html",
-    "main.b3627f4d.css.map": "/PrototypeFlytographerUI/static/css/main.b3627f4d.css.map",
-    "main.70049e2d.js.map": "/PrototypeFlytographerUI/static/js/main.70049e2d.js.map"
+    "main.05179a5e.css.map": "/PrototypeFlytographerUI/static/css/main.05179a5e.css.map",
+    "main.b201d626.js.map": "/PrototypeFlytographerUI/static/js/main.b201d626.js.map"
   },
   "entrypoints": [
-    "static/css/main.b3627f4d.css",
-    "static/js/main.70049e2d.js"
+    "static/css/main.05179a5e.css",
+    "static/js/main.b201d626.js"
   ]
 }
