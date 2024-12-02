@@ -10,8 +10,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import './DataAnalysis.css'; // Import external CSS file
 
-// Register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -28,7 +28,7 @@ const getProfilePicture = (name) => {
 
   if (femaleNames.some((femaleName) => name.toLowerCase().includes(femaleName.toLowerCase()))) {
     const index = Math.floor(Math.random() * 49) + 1;
-    return `/assets/tabler-avatars-1/png/${index}.png`;
+    return `../assets/tabler-avatars-1/png/${index}.png`;
   }
 
   if (maleNames.some((maleName) => name.toLowerCase().includes(maleName.toLowerCase()))) {
@@ -63,8 +63,8 @@ const generatePhotographers = (count = 100) => {
 
     return {
       name,
-      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
-      phone: `+1 (555) ${Math.floor(1000000 + Math.random() * 9000000)}`,
+      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@gmail.com`,
+      phone: `+1 (205) ${Math.floor(1000000 + Math.random() * 9000000)}`,
       ghostingRate: Math.floor(Math.random() * 30),
       availability: Math.floor(Math.random() * 50) + 50,
       declineRate: Math.floor(Math.random() * 20),
@@ -161,22 +161,12 @@ const PhotographerAnalytics = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="analytics-container">
       <h1>Photographer Analytics</h1>
       <Line data={data} options={options} />
       {hoveredPhotographer && (
-        <div
-          style={{
-            marginTop: '20px',
-            padding: '20px',
-            border: '1px solid #ddd',
-            borderRadius: '8px',
-            backgroundColor: '#f9f9f9',
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <div style={{ flex: '1' }}>
+        <div className="profile-card">
+          <div className="profile-info">
             <h2>{hoveredPhotographer.name}</h2>
             <p><strong>Email:</strong> {hoveredPhotographer.email}</p>
             <p><strong>Phone:</strong> {hoveredPhotographer.phone}</p>
@@ -185,30 +175,12 @@ const PhotographerAnalytics = () => {
             <p><strong>Decline Rate:</strong> {hoveredPhotographer.declineRate}%</p>
             <p><strong>Customer Reviews:</strong> {hoveredPhotographer.customerReviews} stars</p>
             <p><strong>Score:</strong> {hoveredPhotographer.score}</p>
-            <button
-              style={{
-                marginTop: '10px',
-                padding: '10px 20px',
-                border: 'none',
-                backgroundColor: '#2196F3',
-                color: '#fff',
-                borderRadius: '4px',
-                cursor: 'pointer',
-              }}
-            >
-              Message
-            </button>
+            <button className="message-button">Message</button>
           </div>
-          <div style={{ marginLeft: '20px' }}>
+          <div className="profile-picture">
             <img
               src={getProfilePicture(hoveredPhotographer.name)}
               alt={`${hoveredPhotographer.name}'s profile`}
-              style={{
-                width: '150px',
-                height: '150px',
-                borderRadius: '50%',
-                objectFit: 'cover',
-              }}
             />
           </div>
         </div>

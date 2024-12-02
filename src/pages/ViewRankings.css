@@ -147,4 +147,42 @@
       font-size: 0.9rem;
     }
   }
+  .search-bar {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .search-bar input {
+    width: 60%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
   
+  .filter-dropdown {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .filter-dropdown select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .reset-button {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #f44336;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .reset-button:hover {
+    background-color: #d32f2f;
+  }

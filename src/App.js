@@ -6,7 +6,9 @@ import ViewParameters from './pages/ViewParameters';
 import EditParameter from './pages/EditParameter';
 import Login from './pages/Login';
 import PhotographerAnalytics from './pages/DataAnalysis'
+import GlobalActivity from './pages/GlobalActivity';
 import './App.css';
+import { Global } from '@emotion/react';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication state
@@ -113,6 +115,7 @@ const App = () => {
             <Route path="view-parameters" element={<ViewParameters />} />
             <Route path="edit-parameter" element={<EditParameter />} />
             <Route path="data-anal" element= {<PhotographerAnalytics photographers={photographers}/>} />
+            <Route path="global-activity" element= {<GlobalActivity photographers={photographers}/>} />
             <Route
           />
           </Route>

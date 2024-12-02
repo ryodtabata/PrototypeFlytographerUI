@@ -15,6 +15,7 @@ const Sidebar = () => {
         <li><Link to="/view-parameters">View Active Parameters</Link></li>
         <li><Link to="/edit-parameter">Edit Parameters</Link></li>
         <li><Link to= "/data-anal">Data Analytics</Link></li>
+        <li><Link to= "/global-activity">Global Activity</Link></li>
       </ul>
     </div>
   );

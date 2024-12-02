@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './ViewRankings.css';
+import React, { useState } from "react";
+import "./ViewRankings.css";
 
 const ViewRankings = () => {
   const firstNames = [
@@ -36,13 +36,14 @@ const ViewRankings = () => {
       elo: Math.floor(80 + Math.random() * (120)),
       firstName: firstNames[Math.floor(Math.random() * firstNames.length)],
       lastName: lastNames[Math.floor(Math.random() * lastNames.length)],
-      phoneNumber
+      phoneNumber,
+      pendingReset: false // Initial pending reset state
     };
   });
 
   const [photographers, setPhotographers] = useState(initialPhotographers);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Sorting function
   const sortPhotographers = (criteria) => {
     const sorted = [...photographers];
     switch (criteria) {
@@ -56,7 +57,7 @@ const ViewRankings = () => {
         sorted.sort((a, b) => a.id.localeCompare(b.id));
         break;
       case "score":
-        sorted.sort((a, b) => b.elo - a.elo); // Descending order
+        sorted.sort((a, b) => b.elo - a.elo);
         break;
       default:
         break;
@@ -64,9 +65,43 @@ const ViewRankings = () => {
     setPhotographers(sorted);
   };
 
+  const filteredPhotographers = photographers.filter(
+    (photographer) =>
+      photographer.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      photographer.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      photographer.id.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const requestScoreReset = (id) => {
+    const userConfirmedId = prompt(`Are you sure you want to reset the score for ${id}? Type the Photographer ID to confirm:`);
+    if (userConfirmedId === id) {
+      setPhotographers((prev) =>
+        prev.map((photographer) =>
+          photographer.id === id
+            ? { ...photographer, pendingReset: true }
+            : photographer
+        )
+      );
+    } else {
+      alert("Incorrect ID. Reset canceled.");
+    }
+  };
+
   return (
     <div className="rankings-container">
       <h1 className="rankings-title">Photographers Rankings</h1>
+
+      {/* Search Bar */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search photographers by name or ID..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      {/* Sort Dropdown */}
       <div className="filter-dropdown">
         <label htmlFor="sortCriteria">Sort by: </label>
         <select
@@ -80,6 +115,8 @@ const ViewRankings = () => {
           <option value="score">Score</option>
         </select>
       </div>
+
+      {/* Rankings Table */}
       <table className="rankings-table">
         <thead>
           <tr>
@@ -88,16 +125,26 @@ const ViewRankings = () => {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Phone Number</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {photographers.map((photographer, index) => (
+          {filteredPhotographers.map((photographer, index) => (
             <tr key={index} className={index % 2 === 0 ? "even-row" : "odd-row"}>
               <td>{photographer.id}</td>
               <td className="score-column">{photographer.elo}</td>
               <td>{photographer.firstName}</td>
               <td>{photographer.lastName}</td>
               <td>{photographer.phoneNumber}</td>
+              <td>
+                <button
+                  className={`reset-button ${photographer.pendingReset ? "pending" : ""}`}
+                  disabled={photographer.pendingReset}
+                  onClick={() => requestScoreReset(photographer.id)}
+                >
+                  {photographer.pendingReset ? "Pending Reset" : "Reset"}
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

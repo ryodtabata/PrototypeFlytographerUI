@@ -1,0 +1,46 @@
+/* Full-Screen Globe Container */
+.globe-container {
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    overflow: hidden; /* Prevent scrollbars from appearing */
+    display: flex;
+    align-items: center; /* Center globe vertically */
+    justify-content: center; /* Center globe horizontally */
+    background-color: #000; /* Black background */
+    position: fixed; /* Ensure it covers the entire viewport, even during scrolling */
+    top: 0; /* Position from the top */
+    left: 0; /* Position from the left */
+  }
+  /* Back Button Styling */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10; /* Ensure it appears above the globe */
+  }
+  
+  .back-button:hover {
+    background-color: #555;
+  }
+  
+  .tooltip {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    pointer-events: none;
+  }
+  
