@@ -138,13 +138,13 @@ const ViewRankings = () => {
               <td>{photographer.phoneNumber}</td>
               <td>
                 <button
-                  className={`reset-button ${photographer.pendingReset ? "pending" : ""}`}
+                  className={`reset-button ${photographer.pendingReset ? "pending button-pressed" : ""}`}
                   disabled={photographer.pendingReset}
                   onClick={() => requestScoreReset(photographer.id)}
                 >
                   {photographer.pendingReset ? "Pending Reset" : "Reset"}
                 </button>
-              </td>
+            </td>
             </tr>
           ))}
         </tbody>

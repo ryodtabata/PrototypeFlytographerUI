@@ -186,3 +186,17 @@
   .reset-button:hover {
     background-color: #d32f2f;
   }
+  
+  .reset-button.button-pressed {
+    background-color: grey;
+    color: #fff;
+    cursor: not-allowed; /* Disable hover effect */
+  }
+  
+  .reset-button.pending {
+    background-color: grey;
+    color: white;
+    cursor: not-allowed;
+  }
+  
+  

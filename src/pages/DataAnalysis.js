@@ -28,17 +28,18 @@ const getProfilePicture = (name) => {
 
   if (femaleNames.some((femaleName) => name.toLowerCase().includes(femaleName.toLowerCase()))) {
     const index = Math.floor(Math.random() * 49) + 1;
-    return `../assets/tabler-avatars-1/png/${index}.png`;
+    return `${process.env.PUBLIC_URL}/assets/tabler-avatars-1/png/${index}.png`;
   }
 
   if (maleNames.some((maleName) => name.toLowerCase().includes(maleName.toLowerCase()))) {
     const index = Math.floor(Math.random() * 45) + 1;
-    return `/assets/tabler-avatars-1/png/m${index}.png`;
+    return `${process.env.PUBLIC_URL}/assets/tabler-avatars-1/png/m${index}.png`;
   }
 
   const index = Math.floor(Math.random() * 45) + 1;
-  return `/assets/tabler-avatars-1/png/m${index}.png`;
+  return `${process.env.PUBLIC_URL}/assets/tabler-avatars-1/png/m${index}.png`;
 };
+
 
 const generatePhotographers = (count = 100) => {
   const firstNames = [
